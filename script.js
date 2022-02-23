@@ -14,12 +14,16 @@ const player1 = document.querySelector('.player--0');
 const player2 = document.querySelector('.player--1');
 
 const dicePNG = document.querySelector('.dice');
+
+dicePNG.classList.add('hidden');
+
 let currentDiceScore = 0; //current score for current player
 let currentPlayer1Score = 0;
 let currentPlayer2Score = 0;
 let currentPlayer = 0; // player 1 or 2's turn
 let playing = true;
-dicePNG.classList.add('hidden');
+
+newGame();
 
 diceRollButton.addEventListener('click', function () {
     if (playing) {
@@ -52,11 +56,11 @@ holdButton.addEventListener('click', function () {
             currentPlayer2Score += currentDiceScore;
             player2Score.textContent = currentPlayer2Score;
         }
-        if (currentPlayer1Score >= 10) {
+        if (currentPlayer1Score >= 100) {
             player1.classList.add('player--winner');
             playing = false;
         }
-        if (currentPlayer2Score >= 10) {
+        if (currentPlayer2Score >= 100) {
             player2.classList.add('player--winner');
             playing = false;
         }
@@ -64,9 +68,24 @@ holdButton.addEventListener('click', function () {
     }
 })
 
-newGameButton.addEventListener('click', function () {
+newGameButton.addEventListener('click', newGame);
+
+function newGame() {
     playing = true;
-})
+    currentDiceScore = 0; //current score for current player
+    currentPlayer1Score = 0;
+    currentPlayer2Score = 0;
+    currentPlayer = 0; // player 1 or 2's turn
+    player1Score.textContent = 0;
+    player2Score.textContent = 0;
+    currentHoldPlayer1.textContent = 0;
+    currentHoldPlayer2.textContent = 0;
+    dicePNG.classList.add('hidden');
+    player1.classList.add('player--active');
+    player1.classList.remove('player--winner');
+    player2.classList.remove('player--active');
+    player2.classList.remove('player--winner');
+}
 
 function swapPlayer() {
     currentDiceScore = 0;
